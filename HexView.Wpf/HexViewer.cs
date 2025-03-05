@@ -143,7 +143,7 @@
             DependencyProperty.Register(nameof(SelectionTextBrush), typeof(Brush), typeof(HexViewer),
                 new FrameworkPropertyMetadata(SystemColors.HighlightTextBrush, OnPropertyChangedInvalidateVisual));
 
-        /// <summary>
+        /*/// <summary>
         /// Defines the offset from <see cref="DataSourceProperty"/> of where the user selection has ended.
         /// </summary>
         public static readonly DependencyPropertyKey SelectionEndPropertyKey =
@@ -166,6 +166,14 @@
         /// Defines the offset from <see cref="DataSourceProperty"/> of where the user selection has started.
         /// </summary>
         public static readonly DependencyProperty SelectionStartProperty = SelectionStartPropertyKey.DependencyProperty;
+        */
+        public static readonly DependencyProperty SelectionStartProperty =
+            DependencyProperty.Register( nameof( SelectionStart ), typeof( long ), typeof( HexViewer ),
+                new FrameworkPropertyMetadata( OnSelectionStartChanged, CoerceSelectionStart ) );
+
+        public static readonly DependencyProperty SelectionEndProperty =
+            DependencyProperty.Register( nameof( SelectionEnd ), typeof( long ), typeof( HexViewer ),
+                new FrameworkPropertyMetadata( OnSelectionEndChanged, CoerceSelectionEnd ) );
 
         /// <summary>
         /// Determines whether to show the address section of the control.
@@ -402,7 +410,7 @@
         {
             get => (long)GetValue(SelectionEndProperty);
 
-            private set => SetValue(SelectionEndPropertyKey, value);
+            set => SetValue(SelectionEndProperty/*Key*/, value);
         }
 
         /// <summary>
@@ -430,7 +438,7 @@
         {
             get => (long)GetValue(SelectionStartProperty);
 
-            private set => SetValue(SelectionStartPropertyKey, value);
+            set => SetValue( SelectionStartProperty/*Key*/, value );
         }
 
         /// <summary>
@@ -2580,7 +2588,7 @@
             return position;
         }
 
-        private bool IsOffsetVisible(long offset)
+        public bool IsOffsetVisible(long offset)
         {
             long maxBytesDisplayed = BytesPerRow * MaxVisibleRows;
 

@@ -1,7 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <Authors>Filip Jeremic</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -15,18 +14,16 @@
 https://github.com/fjeremic/HexView.Wpf/releases</PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
-
   <ItemGroup>
     <Folder Include="Converters\" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="BinaryTools.Elf" Version="0.3.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
@@ -34,5 +31,4 @@ https://github.com/fjeremic/HexView.Wpf/releases</PackageReleaseNotes>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
 </Project>
