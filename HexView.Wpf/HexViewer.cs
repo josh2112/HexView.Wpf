@@ -58,8 +58,8 @@
         /// Defines the segment on which segment:offset addresses are baesd
         /// </summary>
         public static readonly DependencyProperty BaseSegmentProperty =
-            DependencyProperty.Register( nameof( BaseSegment ), typeof( ushort ), typeof( HexViewer ),
-                new FrameworkPropertyMetadata( (ushort)0, OnPropertyChangedInvalidateVisual, CoerceBaseSegment ) );
+            DependencyProperty.Register( nameof( BaseSegment ), typeof( int ), typeof( HexViewer ),
+                new FrameworkPropertyMetadata( 0, OnPropertyChangedInvalidateVisual, CoerceBaseSegment ) );
 
 
         /// <summary>
@@ -249,9 +249,9 @@
         /// <summary>
         /// Gets or sets the segment on which segment:offset addresses are based.
         /// </summary>
-        public ushort BaseSegment
+        public int BaseSegment
         {
-            get => (ushort)GetValue( BaseSegmentProperty );
+            get => (int)GetValue( BaseSegmentProperty );
             set => SetValue( BaseSegmentProperty, value );
         }
 
@@ -901,10 +901,9 @@
                         {
                             if (DataSource.BaseStream.Position + BytesPerColumn <= DataSource.BaseStream.Length)
                             {
-                                var addr = new Utilities.SegmentOffsetAddress( BaseSegment, 0 ) + 
+                                var addr = new Utilities.SegmentOffsetAddress( (ushort)BaseSegment, 0 ) + 
                                     ((int)DataSource.BaseStream.Position - (BaseSegment << 4));
                                 
-                                //var textToFormat = $"{(absolute >> 16) & 0xF,0:X4}:{absolute & 0xFFFF,0:X4}";
                                 var formattedText = new FormattedText(addr.ToString(), CultureInfo.CurrentCulture, FlowDirection.LeftToRight, cachedTypeface, FontSize, AddressBrush, 1.0);
                                 drawingContext.DrawText(formattedText, origin);
 
@@ -1231,13 +1230,8 @@
                 ((long)value).Clamp( 0, hexViewer.DataSource.BaseStream.Length ) : 0L;
         }
 
-        private static object CoerceBaseSegment( DependencyObject d, object value )
-        {
-            var hexViewer = (HexViewer)d;
-
-            return hexViewer.DataSource != null ?
-                ((ushort)value).Clamp( (ushort)0, (ushort)(hexViewer.DataSource.BaseStream.Length >> 4) ) : (ushort)0;
-        }
+        private static object CoerceBaseSegment( DependencyObject d, object value ) =>
+            int.Clamp( (int)value, 0, ushort.MaxValue );
 
         private static void OnDataSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

@@ -91,15 +91,27 @@
                 var off = addr.Offset + offset;
 
                 // Handle rollover
-                while( off < 0 )
+                if( off < 0 )
                 {
-                    seg--;
-                    off += 0x10;
+                    if( seg < 0x1000 )
+                    {
+                        off += seg << 4;
+                        seg = 0;
+                    }
+                    else
+                    {
+                        var div = -(off - 0x10000) / ushort.MaxValue;
+
+                        off += div * 0x10000;
+                        seg -= (ushort)(div * 0x1000);
+                    }
                 }
-                while( off > ushort.MaxValue )
+                else if( off > ushort.MaxValue )
                 {
-                    seg++;
-                    off -= 0x10;
+                    var div = off / ushort.MaxValue;
+
+                    off -= div * 0x10000;
+                    seg += (ushort)(div * 0x1000);
                 }
 
                 return new( seg, (ushort)off );
