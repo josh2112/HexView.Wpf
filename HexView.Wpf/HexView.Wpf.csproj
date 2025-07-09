@@ -2,16 +2,15 @@
   <PropertyGroup>
     <TargetFramework>net9.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Authors>Filip Jeremic</Authors>
+    <Authors>Filip Jeremic, Joshua Foster</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>A WPF control for displaying binary data in a traditional hex view.</Description>
-    <PackageProjectUrl>https://github.com/fjeremic/HexView.Wpf</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/fjeremic/HexView.Wpf</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/josh2112/HexView.Wpf</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/josh2112/HexView.Wpf</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>WPF;HexView;HexViewer</PackageTags>
     <Version>0.1.0</Version>
-    <PackageReleaseNotes>Release notes:
-https://github.com/fjeremic/HexView.Wpf/releases</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
@@ -23,12 +22,5 @@ https://github.com/fjeremic/HexView.Wpf/releases</PackageReleaseNotes>
       <PackagePath>
       </PackagePath>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="BinaryTools.Elf" Version="0.3.0" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 </Project>

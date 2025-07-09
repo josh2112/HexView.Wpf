@@ -67,5 +67,46 @@
 
             return dr.CompareTo(0) < 0 ? dr + dm : dr;
         }
+
+#nullable enable
+
+        public sealed record SegmentOffsetAddress( ushort Segment, ushort Offset ) : IComparable<SegmentOffsetAddress>
+        {
+
+            public int Absolute { get; } = (Segment << 4) + Offset;
+
+            public SegmentOffsetAddress( uint absolute ) : this( (ushort)(absolute >> 4), (ushort)(absolute & 0xf) ) { }
+            
+            public override string ToString() => $"{Segment:x04}:{Offset:x04}";
+
+            public bool Equals( SegmentOffsetAddress? other ) => other?.Absolute == Absolute;
+
+            public override int GetHashCode() => Absolute;
+
+            public int CompareTo( SegmentOffsetAddress? other ) => Absolute.CompareTo( other?.Absolute );
+
+            public static SegmentOffsetAddress operator +( SegmentOffsetAddress addr, int offset )
+            {
+                var seg = addr.Segment;
+                var off = addr.Offset + offset;
+
+                // Handle rollover
+                while( off < 0 )
+                {
+                    seg--;
+                    off += 0x10;
+                }
+                while( off > ushort.MaxValue )
+                {
+                    seg++;
+                    off -= 0x10;
+                }
+
+                return new( seg, (ushort)off );
+            }
+
+            public static SegmentOffsetAddress operator -( SegmentOffsetAddress addr, int offset ) =>
+                addr + -offset;
+        }
     }
 }
