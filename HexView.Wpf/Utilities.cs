@@ -90,18 +90,17 @@
                 var seg = addr.Segment;
                 var off = addr.Offset + offset;
 
-                // Handle rollover
                 if( off < 0 )
                 {
-                    if( seg < 0x1000 )
+                    var div = -(off - 0xffff) / (ushort.MaxValue + 1);
+
+                    if( seg - (ushort)(div * 0x1000) < 0 )
                     {
                         off += seg << 4;
                         seg = 0;
                     }
                     else
                     {
-                        var div = -(off - 0x10000) / ushort.MaxValue;
-
                         off += div * 0x10000;
                         seg -= (ushort)(div * 0x1000);
                     }
