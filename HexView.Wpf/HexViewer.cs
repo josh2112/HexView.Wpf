@@ -1843,6 +1843,11 @@
             return position;
         }
 
+        /// <summary>
+        /// Returns whether or not the given offset is visible.
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public bool IsOffsetVisible(long offset)
         {
             long maxBytesDisplayed = BytesPerRow * MaxVisibleRows;
