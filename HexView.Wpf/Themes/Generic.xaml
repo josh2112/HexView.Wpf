@@ -7,14 +7,10 @@
     xmlns:system="clr-namespace:System;assembly=System.Memory">
     
     <Style TargetType="{x:Type local:HexViewer}">
-        <Setter Property="Background"
-                Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-        <Setter Property="Foreground"
-                Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        <Setter Property="FontFamily"
-                Value="Fira Code"/>
-        <Setter Property="FontSize"
-                Value="13"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="FontFamily" Value="Fira Code"/>
+        <Setter Property="FontSize" Value="13"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -31,7 +27,7 @@
                         </Grid.RowDefinitions>
 
                         <Canvas Name="PART_Canvas" Background="{TemplateBinding Background}" Margin="5">
-                            <Canvas.ContextMenu>
+                            <!--<Canvas.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="Copy">
                                         <MenuItem.Command>
@@ -39,7 +35,7 @@
                                         </MenuItem.Command>
                                     </MenuItem>
                                 </ContextMenu>
-                            </Canvas.ContextMenu>
+                            </Canvas.ContextMenu>-->
                         </Canvas>
 
                         <ScrollBar Name="PART_VerticalScrollBar" Grid.Column="1"/>
